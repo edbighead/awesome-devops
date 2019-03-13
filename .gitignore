@@ -1,9 +1,24 @@
 #  Local .terraform directories
 **/.terraform/*
 
-# .tfstate files
+# Compiled files
 *.tfstate
-*.tfstate.*
+*.tfstate.backup
+*.tfstate.lock.info
 
-# .tfvars files
-*.tfvars
+# Directories
+.terraform/
+
+# SSH Keys
+*.pem
+
+# Backup files
+*.bak
+
+# Ignored Terraform filesecho $PATH
+*gitignore*.tf
+
+# VS Code
+.vscode/
+
+**/*.exe

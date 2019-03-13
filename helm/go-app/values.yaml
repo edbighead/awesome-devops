@@ -1,0 +1,22 @@
+replicaCount: 1
+
+fullnameOverride: go-app
+
+image:
+  repository: "edbighead/go-app"
+  tag: "3.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  requests:
+    memory: "32Mi"
+    cpu: "10m"
+  limits:
+    memory: "256Mi"
+    cpu: "100m"
+
+    
