@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/service-weights: |
+      go-app-live: 80%
+      go-app-canary: 20%
+  name: go-app-ingress
+  namespace: application
+spec:
+  rules:
+  - host: amweek.laur.work
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: go-app-live
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: go-app-canary
+          servicePort: 80
