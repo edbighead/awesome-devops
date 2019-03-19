@@ -12,7 +12,7 @@ resource "google_container_cluster" "primary" {
 
     node_config {
       image_type   = "UBUNTU"
-      machine_type = "n1-highmem-2"
+      machine_type = "n1-standard-2"
       preemptible  = "false"
       disk_type    = "pd-standard"
       disk_size_gb = "50"

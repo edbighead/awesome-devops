@@ -29,11 +29,11 @@ func InsertInfluxDB(version string, request *http.Request, value int) {
 
 	host, err := url.Parse(influxUrl)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	con, err := client.NewClient(client.Config{URL: *host})
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	pts[1] = client.Point{
@@ -43,10 +43,10 @@ func InsertInfluxDB(version string, request *http.Request, value int) {
 			"ip":      request.RemoteAddr,
 		},
 		Fields: map[string]interface{}{
-			"value": value,
+			"http_response": value,
 		},
 		Time:      time.Now(),
-		Precision: "s",
+		Precision: "n",
 	}
 
 	bps := client.BatchPoints{
@@ -55,21 +55,28 @@ func InsertInfluxDB(version string, request *http.Request, value int) {
 	}
 	_, err = con.Write(bps)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 }
 
-func IndexHandler(response http.ResponseWriter, request *http.Request) {
+func WelcomeHandler(response http.ResponseWriter, request *http.Request) {
+	tmplt := template.New("index.html")
+	tmplt, _ = tmplt.ParseFiles("templates/index.html")
+	responseCode := 200
+	version := os.Getenv("APP_VERSION")
+	r := App{Version: version}
+
+	InsertInfluxDB(version, request, responseCode)
+
+	response.WriteHeader(responseCode)
+	tmplt.Execute(response, r)
+}
+
+func ErrorHandler(response http.ResponseWriter, request *http.Request) {
 	tmplt := template.New("error.html")
-
-	// tmplt, _ = tmplt.ParseFiles("templates/index.html")
-	// responseCode := 200
-
 	tmplt, _ = tmplt.ParseFiles("templates/error.html")
 	responseCode := 500
-
 	version := os.Getenv("APP_VERSION")
-	// version := "1.0"
 	r := App{Version: version}
 
 	InsertInfluxDB(version, request, responseCode)
@@ -83,7 +90,8 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", IndexHandler)
+	http.HandleFunc("/", WelcomeHandler)
 	http.HandleFunc("/status", HealthCheck)
+
 	http.ListenAndServe(":80", nil)
 }

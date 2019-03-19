@@ -1,0 +1,16 @@
+service:
+  type: NodePort
+
+plugins:
+  - grafana-piechart-panel
+  - grafana-clock-panel
+
+grafana.ini:
+  server:
+    root_url: https://monitoring.laur.work/
+
+sidecar:
+  datasources:
+    enabled: true
+  dashboards:
+    enabled: true
