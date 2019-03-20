@@ -25,8 +25,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 1,
-      "iteration": 1553005510988,
+      "iteration": 1553069063070,
       "links": [],
       "panels": [
         {
@@ -124,9 +123,12 @@ data:
                   "type": "fill"
                 }
               ],
+              "hide": false,
               "measurement": "response",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT count(\"http_response\") FROM \"response\" \nWHERE $timeFilter AND \n(\"version\" =~ /^$version$/)",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -744,7 +746,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-5m",
+        "from": "now-30m",
         "to": "now"
       },
       "timepicker": {
@@ -775,5 +777,5 @@ data:
       "timezone": "",
       "title": "go-app",
       "uid": "6G5_wtqmk",
-      "version": 6
+      "version": 1
     }

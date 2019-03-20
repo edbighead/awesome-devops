@@ -1,0 +1,9 @@
+fullnameOverride: go-app
+
+service:
+  port: 80
+
+host: amweek.laur.work
+
+ingress:
+  class: traefik

@@ -1,0 +1,5 @@
+persistence:
+  enabled: true
+
+persistence:
+  size: 10Gi

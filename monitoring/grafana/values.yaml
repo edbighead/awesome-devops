@@ -9,6 +9,9 @@ grafana.ini:
   server:
     root_url: https://monitoring.laur.work/
 
+persistence:
+  enabled: true
+
 sidecar:
   datasources:
     enabled: true

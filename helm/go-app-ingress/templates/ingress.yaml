@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
+    traefik.ingress.kubernetes.io/service-weights: |
+  {{- if .Values.canary  }}
+      go-app-prod: {{ template "splitTraffic" . }}%
+      go-app-canary: {{ .Values.canary }}%
+  {{ else }}
+      go-app-prod: 100%
+  {{ end -}} 
+  name: {{ .Values.fullnameOverride }}-ingress
+  namespace: application
+spec:
+  rules:
+  - host: {{ .Values.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.fullnameOverride }}-prod
+          servicePort: {{ .Values.service.port }}
+  {{- if .Values.canary  }}
+      - path: /
+        backend:
+          serviceName: {{ .Values.fullnameOverride }}-canary
+          servicePort: {{ .Values.service.port }}
+  {{ end -}} 

@@ -15,7 +15,8 @@ else
     case "${option}" in
     v) IMAGE_VERSION=${OPTARG} ;;
     esac
-  done
+  done.
+  
 
   if [ "$IMAGE_VERSION" = "" ]; then
     echo "Version should be specified. Please see --help"
