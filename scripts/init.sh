@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Connect to Kubernetes cluster
-gcloud container clusters get-credentials my-gke-cluster --zone us-east1-b --project awesome-devops
+gcloud container clusters get-credentials my-gke-cluster --zone europe-west2-a --project amweek-devops
 
 # Install Tiller
 helm init --wait --service-account tiller

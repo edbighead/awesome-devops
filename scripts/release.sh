@@ -15,7 +15,7 @@ else
     case "${option}" in
     v) IMAGE_VERSION=${OPTARG} ;;
     esac
-  done.
+  done
   
 
   if [ "$IMAGE_VERSION" = "" ]; then
@@ -28,5 +28,5 @@ else
 
   docker build --build-arg app_version=$IMAGE_VERSION -t $IMAGE .
   docker push $IMAGE
-
+  
 fi

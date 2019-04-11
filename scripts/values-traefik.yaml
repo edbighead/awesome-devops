@@ -1,4 +1,4 @@
-loadBalancerIP: 35.196.150.38
+loadBalancerIP: 35.246.42.135
 rbac:
   enabled: true
 ssl:

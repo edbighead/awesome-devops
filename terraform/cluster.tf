@@ -3,8 +3,6 @@ resource "google_container_cluster" "primary" {
   name               = "my-gke-cluster"
   min_master_version = "1.12.5-gke.5"
 
-  master_authorized_networks_config = "${local.master_authorized_networks_config}"
-
   node_pool {
     name               = "kubernetes-node"
     initial_node_count = 1

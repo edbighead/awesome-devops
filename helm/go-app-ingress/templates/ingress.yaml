@@ -5,10 +5,10 @@ metadata:
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
     traefik.ingress.kubernetes.io/service-weights: |
   {{- if .Values.canary  }}
-      go-app-prod: {{ template "splitTraffic" . }}%
+      go-app-live: {{ template "splitTraffic" . }}%
       go-app-canary: {{ .Values.canary }}%
   {{ else }}
-      go-app-prod: 100%
+      go-app-live: 100%
   {{ end -}} 
   name: {{ .Values.fullnameOverride }}-ingress
   namespace: application
@@ -19,7 +19,7 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Values.fullnameOverride }}-prod
+          serviceName: {{ .Values.fullnameOverride }}-live
           servicePort: {{ .Values.service.port }}
   {{- if .Values.canary  }}
       - path: /

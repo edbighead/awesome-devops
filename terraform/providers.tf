@@ -1,13 +1,13 @@
 provider "google" {
-  project = "awesome-devops"
-  region  = "us-east1"
-  zone    = "us-east1-b"
+  project = "amweek-devops"
+  region  = "europe-west2"
+  zone    = "europe-west2-a"
 }
 
 provider "google-beta" {
-  project = "awesome-devops"
-  region  = "us-east1"
-  zone    = "us-east1-b"
+  project = "amweek-devops"
+  region  = "europe-west2"
+  zone    = "europe-west2-a"
 }
 
 provider "kubernetes" {
